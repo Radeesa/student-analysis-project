@@ -3,7 +3,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-data = pd.read_csv("data/students.csv")
+data = pd.read_csv("../data/students.csv")
 
 
 st.title("Student Performance Dashboard")
