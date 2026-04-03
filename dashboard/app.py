@@ -2,14 +2,14 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# -------------------------------
+
 # Page Config
-# -------------------------------
+
 st.set_page_config(layout="wide", page_title="Student Dashboard")
 
-# -------------------------------
+
 # Custom CSS (Modern UI)
-# -------------------------------
+
 st.markdown("""
 <style>
 .main {
@@ -65,24 +65,24 @@ section[data-testid="stSidebar"] {
 </style>
 """, unsafe_allow_html=True)
 
-# -------------------------------
+
 # Load Data
-# -------------------------------
+
 @st.cache_data
 def load_data():
     return pd.read_csv("../data/Student_data.csv")
 
 data = load_data()
 
-# -------------------------------
+
 # Header
-# -------------------------------
+
 st.markdown("<h1>Student Performance Dashboard</h1>", unsafe_allow_html=True)
 st.markdown("<p>Analyze student performance, attendance, and academic trends</p>", unsafe_allow_html=True)
 
-# -------------------------------
+
 # Sidebar Filters
-# -------------------------------
+
 st.sidebar.title("Dashboard Controls")
 st.sidebar.markdown("---")
 
@@ -106,9 +106,9 @@ if "Major" in data.columns:
     if selected_major != "All":
         filtered_data = filtered_data[filtered_data["Major"] == selected_major]
 
-# -------------------------------
+
 # KPI Metrics
-# -------------------------------
+
 st.markdown("## Key Metrics")
 
 col1, col2, col3 = st.columns(3)
@@ -124,9 +124,9 @@ with col3:
 
 st.markdown("---")
 
-# -------------------------------
+
 # Charts Section
-# -------------------------------
+
 st.markdown("## Visual Analysis")
 
 col1, col2 = st.columns(2)
@@ -174,9 +174,9 @@ if "Attendance_Pct" in filtered_data.columns:
         )
         st.plotly_chart(fig4, width="stretch")
 
-# -------------------------------
+
 # Additional Chart
-# -------------------------------
+
 numeric_cols = filtered_data.select_dtypes(include='number')
 avg_scores = numeric_cols.mean()
 
@@ -196,9 +196,9 @@ st.plotly_chart(fig3, width="stretch")
 
 st.markdown("---")
 
-# -------------------------------
+
 # Search
-# -------------------------------
+
 st.markdown("## 🔎 Search Data")
 
 search = st.text_input("Type to search")
@@ -208,15 +208,13 @@ if search:
         filtered_data.apply(lambda row: row.astype(str).str.contains(search, case=False).any(), axis=1)
     ]
 
-# -------------------------------
+
 # Data Table
-# -------------------------------
 st.markdown("## Data Preview")
 st.dataframe(filtered_data)
 
-# -------------------------------
+
 # Extra Info
-# -------------------------------
 with st.expander("Dataset Info"):
     st.write(data.head())
     st.write(data.columns)
@@ -224,8 +222,7 @@ with st.expander("Dataset Info"):
 with st.expander("View Raw Data"):
     st.dataframe(filtered_data)
 
-# -------------------------------
+
 # Footer
-# -------------------------------
 st.markdown("---")
 st.markdown("<p style='text-align:center;'>Developed by Radeesa</p>", unsafe_allow_html=True)
