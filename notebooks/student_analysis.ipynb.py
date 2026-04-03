@@ -8,6 +8,9 @@ data = pd.read_csv("data/students.csv")
 
 st.title("Student Performance Dashboard")
 
+st.write(data.head())
+st.write(data.columns)
+
 st.subheader("Dataset")
 st.write(data)
 
